@@ -1,2 +1,2 @@
 # ecosort
-App for sorting discarded items
+App for scanning and sorting your trash
