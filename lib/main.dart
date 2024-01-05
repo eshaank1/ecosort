@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      debugShowCheckedModeBanner: false, // Remove debug banner
     );
   }
 }
@@ -30,58 +31,46 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _currentIndex = 0;
+
+  final List<Widget> _children = [
+    Center(child: Container()),  // Placeholder for the home page content
+    const SettingsPage(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              child: const Text(
-                'Drawer Header',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text('Home'),
-              onTap: () {
-                Navigator.pop(context);
-                // Add any home-related functionality here
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
-              onTap: _openSettingsPage, // Open SettingsPage
-            ),
-          ],
+        title: Text(
+          widget.title,
+          textAlign: TextAlign.center, // Center the title text
         ),
+        centerTitle: true, // Center the title text
       ),
-      body: Center(
-        child: Container(), // Empty container
+      body: _children[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
+          ),
+        ],
       ),
-    );
-  }
-
-  void _openSettingsPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const SettingsPage()),
     );
   }
 }
-
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
