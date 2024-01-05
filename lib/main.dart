@@ -31,9 +31,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _currentIndex = 0;
+  int _currentIndex = 1; // Initialize to 1
 
   final List<Widget> _children = [
+    const CameraPage(), // Add CameraPage widget
     Center(child: Container()),  // Placeholder for the home page content
     const SettingsPage(),
   ];
@@ -59,6 +60,10 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
+            icon: Icon(Icons.camera_alt),
+            label: 'Camera',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
           ),
@@ -67,6 +72,21 @@ class _MyHomePageState extends State<MyHomePage> {
             label: 'Settings',
           ),
         ],
+      ),
+    );
+  }
+}
+
+class CameraPage extends StatelessWidget {
+  const CameraPage({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Camera'),
+      ),
+      body: const Center(
+        child: Text('This is the Camera Page'),
       ),
     );
   }
